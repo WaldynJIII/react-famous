@@ -3,52 +3,59 @@ import ActorCard from '../ActorCard/ActorCard'
 import Grid from '@material-ui/core/Grid';
 
 class FamousPeople extends Component {
-    state={
-        actor:{
-        name: '',
-        role: '',
+    state = {
+        actor: {
+            name: '',
+            role: '',
         },
         actorArray: [],
-       
+
     }
-    setActor =(key) =>(event) =>{
+    setActor = (key) => (event) => {
         this.setState({
-            actor:{
-            ...this.state.actor,
-            [key]: event.target.value
+            actor: {
+                ...this.state.actor,
+                [key]: event.target.value
             }
         })
         console.log(this.state.actor)
     }
-    
-    pushDisplay =()=>{
+
+    pushDisplay = () => {
         this.state.actorArray.push(this.state.actor)
         console.log(this.state.actorArray)
- 
+        this.setState({
+            actor: {
+                name: '',
+                role: '',
+            }
+        })
+
     }
     createDisplay = (actorArray) => {
-        
-        let displayArray=[]
+
+        let displayArray = []
         for (let i = 0; i < actorArray.length; i++) {
-            displayArray.push(<ActorCard name={actorArray[i].name}role={actorArray[i].role}/>)
+            displayArray.push(<ActorCard name={actorArray[i].name} role={actorArray[i].role} />)
         }
         console.log(displayArray)
-       return displayArray
+        return displayArray
     }
-    
-    render(){
+
+    render() {
         return (
             <div >
-                <input type="text" onChange={this.setActor('name')}/>
-                <input type="text" onChange={this.setActor('role')} />
+                <h1>{this.state.actor.name} is famous for {this.state.actor.role}</h1>
+                <input type="text" onChange={this.setActor('name')} value={this.state.actor.name} />
+                <input type="text" onChange={this.setActor('role')} value={this.state.actor.role} />
                 <button onClick={this.pushDisplay} >Submit</button>
                 <Grid>
-                   {this.createDisplay(this.state.actorArray)}
-                   </Grid>
-                   
-                
+                    {this.createDisplay(this.state.actorArray)}
+                </Grid>
+
+
             </div>
-            
+
         )
     }
 }
